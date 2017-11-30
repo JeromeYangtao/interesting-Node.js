@@ -10,6 +10,7 @@
     "hello": "./hello.js"
   },
   "dependencies": {
-    "shelljs": "^0.7.8"
+    "shelljs": "^0.7.8",
+    "yargs": "^10.0.3"
   }
 }

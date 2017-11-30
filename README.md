@@ -23,9 +23,10 @@
 1.安装Node.js
 2.克隆项目:git clone https://github.com/JeromeYangtao/interesting-Node.js.git
 3.cd commandLine
-4.进入想要使用的命令行工具文件夹
-5.npm link
-6.使用命令行
+4.npm install
+5.进入想要使用的命令行工具文件夹
+6.npm link
+7.使用命令行
 ```
 
 命令行具体使用
@@ -34,6 +35,8 @@
 
 在终端输入:hello
 输出:hello world
-在终端输入:hello Thomson
+在终端输入:hello --name=Thomson 或者 hello -n=Thomson
 输出:hello Thomson
+在终端输入:hello --help  或者 hello -h
+输出:帮助信息
 ```
