@@ -8,5 +8,8 @@
   },
   "bin": {
     "hello": "./hello.js"
+  },
+  "dependencies": {
+    "shelljs": "^0.7.8"
   }
 }

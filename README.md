@@ -3,6 +3,7 @@
 
 ### 已经实现的功能
 - [x] 代理服务器
+- [x] hello脚本
 
 ### 项目目录说明
 ```
@@ -19,16 +20,18 @@
 ### 使用说明
 安装
 ```
-1.克隆项目:git clone https://github.com/JeromeYangtao/interesting-Node.js.git
-2.cd commandLine
-3.进入想要使用的命令行工具文件夹
-2.npm link
-3.使用命令行
+1.安装Node.js
+2.克隆项目:git clone https://github.com/JeromeYangtao/interesting-Node.js.git
+3.cd commandLine
+4.进入想要使用的命令行工具文件夹
+5.npm link
+6.使用命令行
 ```
 
 命令行具体使用
 ```
 命令行工具:hello
+
 在终端输入:hello
 输出:hello world
 在终端输入:hello Thomson
