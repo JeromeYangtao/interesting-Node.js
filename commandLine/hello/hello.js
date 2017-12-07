@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var argv = require('yargs')
+const argv = require('yargs')
   .option('n', {
     alias: 'name',
     demand: true,
