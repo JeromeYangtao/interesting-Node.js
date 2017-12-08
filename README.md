@@ -4,12 +4,14 @@
 ### 已经实现的功能
 - [x] 代理服务器
 - [x] hello脚本
+- [x] 有道翻译脚本
 
 ### 项目目录说明
 ```
 .
 |-- commandLine                       // 一些常见的命令行
 |   |-- hello                         // 最简单的hello脚本
+|   |-- node-translator               // 有道翻译脚本
 |-- proxy                             // 代理服务器
 |-- .gitignore                        // git忽略的代码
 |-- README.md                         // 项目说明
@@ -39,4 +41,8 @@
 输出:hello Thomson
 在终端输入:hello --help  或者 hello -h
 输出:帮助信息
+
+有道翻译脚本:node-translator
+在终端输入:youdao home
+输出: home 的翻译
 ```
