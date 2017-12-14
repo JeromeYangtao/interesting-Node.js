@@ -1,0 +1,14 @@
+{
+  "name": "px2rem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "px2rem.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "px2rem": "./px2rem.js"
+  },
+  "author": "Thomson",
+  "license": "ISC"
+}
