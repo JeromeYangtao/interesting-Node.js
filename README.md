@@ -50,4 +50,6 @@
 
 批量px转rem脚本
 在终端输入:px2rem index.css 20 (20为rem和px的比值,默认是20)
+或者
+在终端输入:px2rem index.html
 ```
