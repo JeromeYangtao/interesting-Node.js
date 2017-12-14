@@ -49,5 +49,5 @@
 输出: home 的翻译
 
 批量px转rem脚本
-在终端输入:px2rem index.css
+在终端输入:px2rem index.css 20 (20为rem和px的比值,默认是20)
 ```

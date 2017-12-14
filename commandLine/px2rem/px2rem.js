@@ -8,8 +8,10 @@ let data = fs.readFileSync(filePath, 'utf-8')
 
 function convert (pxNum) {
   // px数转化为rem数
-  //假设1rem=10px
-  return pxNum / 10
+  //默认1rem=20px
+  let ratio = process.argv[3] ? process.argv[3] : 20
+  console.log(`px:rem=${ratio}`)
+  return pxNum / ratio
 }
 
 let newData = data.replace(/\d*px\b/, (match) => {
@@ -19,7 +21,6 @@ let newData = data.replace(/\d*px\b/, (match) => {
 })
 
 fs.writeFileSync(filePath, newData)
-console.log(newData)
 
 // 用法
-// px2rem index.css
+// px2rem index.css 20
