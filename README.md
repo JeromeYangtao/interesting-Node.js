@@ -5,6 +5,7 @@
 - [x] 代理服务器
 - [x] hello脚本
 - [x] 有道翻译脚本
+- [x] 批量px转rem脚本
 
 ### 项目目录说明
 ```
@@ -12,6 +13,7 @@
 |-- commandLine                       // 一些常见的命令行
 |   |-- hello                         // 最简单的hello脚本
 |   |-- node-translator               // 有道翻译脚本
+|   |-- px2rem                        // 批量px转rem脚本
 |-- proxy                             // 代理服务器
 |-- .gitignore                        // git忽略的代码
 |-- README.md                         // 项目说明
@@ -45,4 +47,7 @@
 有道翻译脚本:node-translator
 在终端输入:youdao home
 输出: home 的翻译
+
+批量px转rem脚本
+在终端输入:px2rem index.css
 ```
