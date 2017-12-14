@@ -6,20 +6,20 @@ let filePath = path.resolve(process.cwd(), filename)
 
 let data = fs.readFileSync(filePath, 'utf-8')
 
-//假设1rem=10px
-let string = data.replace(/\d*px\b/, (match) => {
+function convert (pxNum) {
+  // px数转化为rem数
+  //假设1rem=10px
+  return pxNum / 10
+}
+
+let newData = data.replace(/\d*px\b/, (match) => {
   let pxNum = match.slice(0, match.length - 2)
-  let remNum = pxNum / 10
+  let remNum = convert(pxNum)
   return `${remNum}rem`
 })
 
-// function convert(str, p1, offset, s)
-// {
-//   return ((p1-32) * 5/9) + "C";
-// }
-// var test = /(\d+(?:\.\d*)?)F\b/g;
-// return s.replace(test, convert);
+fs.writeFileSync(filePath, newData)
+console.log(newData)
 
-console.log(string)
 // 用法
 // px2rem index.css
