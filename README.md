@@ -52,4 +52,5 @@
 在终端输入:px2rem index.css 20 (20为rem和px的比值,默认是20)
 或者
 在终端输入:px2rem index.html
+在终端输入:px2rem (处理当前文件夹下的文件)
 ```

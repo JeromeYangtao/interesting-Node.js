@@ -21,7 +21,7 @@ if (filename) {
       // 替换HTML文件的内联样式
       let newData = getReplacedData(data)
       //检索HTML引用的外部样式并替换
-      data.match(/\<link.*\>/g).forEach((x) => {
+      data.match(/<link.*>/g).forEach((x) => {
         let cssHref = x.match(/href=".*"/)[0].slice(6, -1)
         let cssData = fs.readFileSync(cssHref, 'utf-8')
         let newCssData = getReplacedData(cssData)
@@ -38,10 +38,7 @@ if (filename) {
   }
 } else {
   //处理文件夹
-  let files = fs.readdirSync(process.cwd())
-  let filePaths = files.map((flie) => {
-    return path.resolve(process.cwd(), flie)
-  })
+  let filePaths = getFiles(process.cwd())
   filePaths.forEach((filePath) => {
     let data = fs.readFileSync(filePath, 'utf-8')
     let newData = getReplacedData(data)
@@ -68,6 +65,43 @@ function getReplacedData (data) {
     let remNum = convert(pxNum)
     return `${remNum}rem`
   })
+}
+
+// 根据是否存在 . 简单判断是否为文件夹
+function isFile (file) {
+  return file.includes('.')
+}
+
+function isDir (file) {
+  return !file.includes('.')
+}
+
+// 获取文件夹下的所有文件
+function getFiles (dirname) {
+  let _filePaths = []
+
+  function _recursive (currentDir) {
+    let currentFiles = fs.readdirSync(currentDir)
+    let currentFilePaths = currentFiles.filter(isFile).map((file) => {
+      return path.resolve(currentDir, file)
+    })
+    _filePaths = _filePaths.concat(currentFilePaths)
+    // 处理文件夹下的文件夹
+    let dirPaths = currentFiles.filter(isDir).map((dir) => {
+      return path.resolve(currentDir, dir)
+    })
+    if (dirPaths.length > 0) {
+      dirPaths.forEach((dirPath) => {
+        _recursive(dirPath)
+      })
+    } else {
+      //退出递归
+      return null
+    }
+  }
+
+  _recursive(dirname)
+  return _filePaths
 }
 
 // px2rem index.css 20
