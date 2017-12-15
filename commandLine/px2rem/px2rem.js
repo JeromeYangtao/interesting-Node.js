@@ -27,18 +27,30 @@ try {
 
     //检索HTML引用的外部样式并替换
     //先考虑匹配一个的情况
-    let linkTag = data.match(/\<link.*\>/)[0]
-    let cssHref = linkTag.match(/href=".*"/)[0].slice(6,-1)
-    console.log(cssHref)
-    let cssData = fs.readFileSync(cssHref, 'utf-8')
-    let newCssData = cssData.replace(/\d+px/g, (match) => {
-      let pxNum = match.slice(0, match.length - 2)
-      let remNum = convert(pxNum)
-      return `${remNum}rem`
+    data.match(/\<link.*\>/g).forEach((x) => {
+      let cssHref = x.match(/href=".*"/)[0].slice(6, -1)
+      let cssData = fs.readFileSync(cssHref, 'utf-8')
+      let newCssData = cssData.replace(/\d+px/g, (match) => {
+        let pxNum = match.slice(0, match.length - 2)
+        let remNum = convert(pxNum)
+        return `${remNum}rem`
+      })
+      console.log(cssHref)
+      console.log(newCssData)
+      // fs.writeFileSync(cssHref,newCssData)
+      return
     })
+
+    // let cssHref = linkTag.match(/href=".*"/)[0].slice(6,-1)
+    // console.log(cssHref)
+    // let cssData = fs.readFileSync(cssHref, 'utf-8')
+    // let newCssData = cssData.replace(/\d+px/g, (match) => {
+    //   let pxNum = match.slice(0, match.length - 2)
+    //   let remNum = convert(pxNum)
+    //   return `${remNum}rem`
+    // })
+
     console.log(newData)
-    console.log(newCssData)
-    // fs.writeFileSync(cssHref,newCssData)
     // fs.writeFileSync(filePath, newData)
   } else {
     console.log('文件类型错误')
@@ -54,7 +66,6 @@ try {
 * */
 function convert (pxNum) {
   let ratio = process.argv[3] ? process.argv[3] : 20
-  console.log(`px:rem=${ratio}`)
   return pxNum / ratio
 }
 
