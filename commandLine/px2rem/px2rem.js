@@ -2,36 +2,52 @@
 const path = require('path')
 const fs = require('fs')
 let filename = process.argv[2]
-let filePath = path.resolve(process.cwd(), filename)
 
-let isCSS = !!filename.match(/.css\b/)
-let isHTML = !!filename.match(/.html\b/)
+if (filename) {
+  // 处理具体文件
+  let filePath = path.resolve(process.cwd(), filename)
+  let isCSS = !!filename.match(/.css\b/)
+  let isHTML = !!filename.match(/.html\b/)
 
-try {
-  let data = fs.readFileSync(filePath, 'utf-8')
-  if (isCSS && !isHTML) {
-    // 替换css文件
-    let newData = getReplacedData(data)
-    console.log(newData)
-    // fs.writeFileSync(filePath, newData)
-  } else if (isHTML && !isCSS) {
-    // 替换HTML文件的内联样式
-    let newData = getReplacedData(data)
-    //检索HTML引用的外部样式并替换
-    data.match(/\<link.*\>/g).forEach((x) => {
-      let cssHref = x.match(/href=".*"/)[0].slice(6, -1)
-      let cssData = fs.readFileSync(cssHref, 'utf-8')
-      let newCssData = getReplacedData(cssData)
-      console.log(newCssData)
-      // fs.writeFileSync(cssHref,newCssData)
-    })
-    console.log(newData)
-    // fs.writeFileSync(filePath, newData)
-  } else {
-    console.log('文件类型错误')
+  try {
+    let data = fs.readFileSync(filePath, 'utf-8')
+    console.log(data)
+    if (isCSS && !isHTML) {
+      // 替换css文件
+      let newData = getReplacedData(data)
+      console.log(newData)
+      // fs.writeFileSync(filePath, newData)
+    } else if (isHTML && !isCSS) {
+      // 替换HTML文件的内联样式
+      let newData = getReplacedData(data)
+      //检索HTML引用的外部样式并替换
+      data.match(/\<link.*\>/g).forEach((x) => {
+        let cssHref = x.match(/href=".*"/)[0].slice(6, -1)
+        let cssData = fs.readFileSync(cssHref, 'utf-8')
+        let newCssData = getReplacedData(cssData)
+        console.log(newCssData)
+        // fs.writeFileSync(cssHref,newCssData)
+      })
+      console.log(newData)
+      // fs.writeFileSync(filePath, newData)
+    } else {
+      console.log('文件类型错误')
+    }
+  } catch (error) {
+    console.log('路径参数错误')
   }
-} catch (error) {
-  console.log('路径参数错误')
+} else {
+  //处理文件夹
+  let files = fs.readdirSync(process.cwd())
+  let filePaths = files.map((flie) => {
+    return path.resolve(process.cwd(), flie)
+  })
+  filePaths.forEach((filePath) => {
+    let data = fs.readFileSync(filePath, 'utf-8')
+    let newData = getReplacedData(data)
+    console.log(newData)
+    // fs.writeFileSync(filePath,newData)
+  })
 }
 
 /*
@@ -56,3 +72,4 @@ function getReplacedData (data) {
 
 // px2rem index.css 20
 // px2rem index.html
+//px2rem
