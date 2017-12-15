@@ -35,5 +35,3 @@ fs.writeFileSync(filePath, newData)
   console.log('路径参数错误')
 }
 
-// 用法
-// px2rem index.css 20
