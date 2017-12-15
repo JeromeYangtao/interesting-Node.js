@@ -10,23 +10,23 @@ let isHTML = !!filename.match(/.html\b/)
 try {
   let data = fs.readFileSync(filePath, 'utf-8')
 
-  function convert (pxNum) {
-    // px数转化为rem数
-    //默认1rem=20px
-    let ratio = process.argv[3] ? process.argv[3] : 20
-    console.log(`px:rem=${ratio}`)
-    return pxNum / ratio
-  }
-
   if (isCSS && !isHTML) {
-    let newData = data.replace(/\d*px\b/, (match) => {
+    // 替换css文件
+    let newData = data.replace(/\d+px\b/g, (match) => {
       let pxNum = match.slice(0, match.length - 2)
       let remNum = convert(pxNum)
       return `${remNum}rem`
     })
-fs.writeFileSync(filePath, newData)
+    fs.writeFileSync(filePath, newData)
   } else if (isHTML && !isCSS) {
-    /*TODO*/
+    // 替换HTML文件
+    let newData = data.replace(/\d+px/g, (match) => {
+      let pxNum = match.slice(0, match.length - 2)
+      let remNum = convert(pxNum)
+      return `${remNum}rem`
+    })
+    console.log(newData)
+    // fs.writeFileSync(filePath, newData)
   } else {
     console.log('文件类型错误')
   }
@@ -35,3 +35,13 @@ fs.writeFileSync(filePath, newData)
   console.log('路径参数错误')
 }
 
+function convert (pxNum) {
+  // px数转化为rem数
+  //默认1rem=20px
+  let ratio = process.argv[3] ? process.argv[3] : 20
+  console.log(`px:rem=${ratio}`)
+  return pxNum / ratio
+}
+
+// px2rem index.css 20
+// px2rem index.html
