@@ -1,6 +1,14 @@
 #!/usr/bin/env node
+/*
+* TODO
+* @import 的处理
+* rem和px的比例动态确定
+* rem换成vw
+* */
 const path = require('path')
 const fs = require('fs')
+// 默认rem和px的比例
+const defaultRatio = 20
 let filename = process.argv[2]
 
 if (filename) {
@@ -52,10 +60,9 @@ if (filename) {
 * 默认1rem=20px
 * */
 function convert (pxNum) {
-  let ratio = process.argv[3] ? process.argv[3] : 20
+  let ratio = process.argv[3] ? process.argv[3] : defaultRatio
   return pxNum / ratio
 }
-
 /*
 *把文本内的px转化为rem
 * */

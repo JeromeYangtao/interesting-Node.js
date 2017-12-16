@@ -15,6 +15,7 @@
 |   |-- node-translator               // 有道翻译脚本
 |   |-- px2rem                        // 批量px转rem脚本
 |-- proxy                             // 代理服务器
+|-- spider                            // 爬虫
 |-- .gitignore                        // git忽略的代码
 |-- README.md                         // 项目说明
 
