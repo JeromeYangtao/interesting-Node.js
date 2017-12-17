@@ -1,3 +1,4 @@
+const fs = require('fs')
 const axios = require('axios')
 const cheerio = require('cheerio')
 // const puppeteer = require('puppeteer')
@@ -17,7 +18,7 @@ async function getHtml (url) {
     })
 }
 
-for (let i = 0; i < 250; i += 25) {
+for (let i = 0; i < 2500; i += 25) {
   url = `https://www.douban.com/group/gz_rent/discussion?start=${i}`
   getHtml(url)
     .then(async (html) => {
@@ -29,14 +30,18 @@ for (let i = 0; i < 250; i += 25) {
         let creator = $('td', element).eq(1).text()
         let replyNum = $('td', element).eq(2).text()
         let time = $('td', element).eq(3).text()
-
-        await Topic.createANewTopic({
+        let topic = {
           creator,
           title,
           url,
           replyNum,
           time
-        })
+        }
+        await Topic.createANewTopic(topic)
+        fs.appendFile('./topics.txt',
+          `${topic.title}   ${topic.url}  ${topic.time} \n`, function (err) {
+            if (err) throw err
+          })
       })
     })
 }
