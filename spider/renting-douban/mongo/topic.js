@@ -7,7 +7,7 @@ const TopicSchema = new Schema({
   creator: {type: String},
   title: {type: String},
   url: {type: String},
-  content: {type: String},
+  time: {type: String},
   replyNum: {type: String}
 })
 const TopicModel = mongoose.model('topic', TopicSchema)
@@ -17,7 +17,7 @@ async function createANewTopic (params) {
     creator: params.creator,
     title: params.title,
     url: params.url,
-    content: params.content,
+    time: params.time,
     replyNum: params.replyNum
   })
   return await topic.save()
