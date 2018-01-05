@@ -11,15 +11,22 @@ let url
 async function getHtml (url) {
   return await axios({
     method: 'get',
-    url
+    url,
+    headers: {
+      'accept-Language': 'zh-CN,zh;q=0.8',
+      'Cookie': ''
+    }
   })
     .then((response) => {
       return response.data
     })
 }
 
-for (let i = 0; i < 2500; i += 25) {
+console.log('开始向浏览器发起请求')
+console.log('-----------------------')
+for (let i = 0; i < 250; i += 25) {
   url = `https://www.douban.com/group/gz_rent/discussion?start=${i}`
+  console.log(`请求到的第${i / 25 + 1}页数据`)
   getHtml(url)
     .then(async (html) => {
       let $ = cheerio.load(html)
