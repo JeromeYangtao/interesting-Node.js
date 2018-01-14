@@ -70,6 +70,10 @@ for (let i = 0; i < 25; i += 25) {
           })
       })
     })
+    .catch((err)=>{
+      console.log(err)
+      console.log('网络请求失败')
+    })
 }
 
 
