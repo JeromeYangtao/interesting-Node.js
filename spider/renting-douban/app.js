@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 const Topic = require('./mongo/topic')
 
 let url
+let topicArr = []
 
 async function getHtml (url) {
   return await axios({
@@ -22,9 +23,22 @@ async function getHtml (url) {
     })
 }
 
+// 包含对象的数组去重
+function unique (arr, key) {
+  let result = {}
+  let finalResult = []
+  for (let i = 0; i < arr.length; i++) {
+    result[arr[i][key]] = arr[i]
+  }
+  for (let item in result) {
+    finalResult.push(result[item])
+  }
+  return finalResult
+}
+
 console.log('开始向浏览器发起请求')
 console.log('-----------------------')
-for (let i = 0; i < 250; i += 25) {
+for (let i = 0; i < 25; i += 25) {
   url = `https://www.douban.com/group/gz_rent/discussion?start=${i}`
   console.log(`请求到的第${i / 25 + 1}页数据`)
   getHtml(url)
@@ -37,6 +51,7 @@ for (let i = 0; i < 250; i += 25) {
         let creator = $('td', element).eq(1).text()
         let replyNum = $('td', element).eq(2).text()
         let time = $('td', element).eq(3).text()
+
         let topic = {
           creator,
           title,
@@ -44,6 +59,10 @@ for (let i = 0; i < 250; i += 25) {
           replyNum,
           time
         }
+        topicArr.push(topic)
+      })
+      topicArr = unique(topicArr,'url')
+      topicArr.forEach(async (topic) => {
         await Topic.createANewTopic(topic)
         fs.appendFile('./topics.txt',
           `${topic.title}   ${topic.url}  ${topic.time} \n`, function (err) {
@@ -52,6 +71,13 @@ for (let i = 0; i < 250; i += 25) {
       })
     })
 }
+
+
+
+
+
+
+
 
 
 
