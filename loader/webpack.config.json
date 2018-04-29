@@ -1,0 +1,10 @@
+{
+  test: /.(html)$/,
+  loader: 'html-layout-loader',
+  include: htmlPath,
+  // the htmls you want inject to layout
+  options: {
+    layout: layoutHtmlPath
+    // the path of default layout html
+  }
+}

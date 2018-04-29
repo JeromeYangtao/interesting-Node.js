@@ -17,6 +17,7 @@
 |-- proxy                             // 代理服务器
 |-- spider                            // 爬虫
 |   |-- renting-douban                //爬取豆瓣的租房信息
+|-- loader                            //webpack的loader
 |-- .gitignore                        // git忽略的代码
 |-- README.md                         // 项目说明
 
